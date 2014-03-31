@@ -51,6 +51,7 @@
 
 static int first_display_off_hint;
 
+#ifdef PERF_PROFILES
 static int current_power_profile = PROFILE_BALANCED;
 
 /* power save mode: max 2 CPUs, max 1.2 GHz */
@@ -141,6 +142,7 @@ static int set_power_profile(int profile)
     }
     return ret;
 }
+#endif
 
 /* fling boost: min 3 CPUs, min 1.3 GHz */
 static int resources_interaction_fling_boost[] = {
@@ -160,6 +162,7 @@ static int resources_interaction_boost[] = {
     CPU3_MIN_FREQ_NONTURBO_MAX + 2
 };
 
+#ifdef PERF_PROFILES
 /* fling boost: min 3 CPUs, min 1.5 GHz */
 static int resources_interaction_fling_boost_perf[] = {
     CPUS_ONLINE_MIN_3,
@@ -177,6 +180,7 @@ static int resources_interaction_boost_perf[] = {
     CPU2_MIN_FREQ_NONTURBO_MAX + 5,
     CPU3_MIN_FREQ_NONTURBO_MAX + 5
 };
+#endif
 
 static int resources_launch[] = {
     CPUS_ONLINE_MIN_2,
@@ -200,6 +204,7 @@ int power_hint_override(power_hint_t hint, void *data)
     static int s_previous_duration = 0;
     int duration;
 
+#ifdef PERF_PROFILES
     if (hint == POWER_HINT_SET_PROFILE) {
         if (set_power_profile(*(int32_t *)data) < 0)
             ALOGE("mpdecision not started in a timely manner.");
@@ -211,14 +216,19 @@ int power_hint_override(power_hint_t hint, void *data)
             current_power_profile == PROFILE_HIGH_PERFORMANCE) {
         return HINT_HANDLED;
     }
+#endif
 
     switch (hint) {
         case POWER_HINT_INTERACTION:
+#ifdef PERF_PROFILES
             if (current_power_profile == PROFILE_BIAS_POWER) {
                 duration = PERF_INTERACTIVE_DURATION;
             } else {
                 duration = DEFAULT_INTERACTIVE_DURATION;
             }
+#else
+            duration = DEFAULT_INTERACTIVE_DURATION;
+#endif
             if (data) {
                 int input_duration = *((int*)data);
                 if (input_duration > duration) {
@@ -237,6 +247,7 @@ int power_hint_override(power_hint_t hint, void *data)
             s_previous_boost_timespec = cur_boost_timespec;
             s_previous_duration = duration;
 
+#ifdef PERF_PROFILES
             if (current_power_profile == PROFILE_BIAS_POWER) {
                 if (duration >= MIN_FLING_DURATION) {
                     interaction(duration, ARRAY_SIZE(resources_interaction_fling_boost_perf),
@@ -254,6 +265,15 @@ int power_hint_override(power_hint_t hint, void *data)
                             resources_interaction_boost);
                 }
             }
+#else
+            if (duration >= MIN_FLING_DURATION) {
+                interaction(duration, ARRAY_SIZE(resources_interaction_fling_boost),
+                        resources_interaction_fling_boost);
+            } else {
+                interaction(duration, ARRAY_SIZE(resources_interaction_boost),
+                        resources_interaction_boost);
+            }
+#endif
             return HINT_HANDLED;
         case POWER_HINT_LAUNCH:
             duration = LAUNCH_DURATION;

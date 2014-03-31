@@ -1,5 +1,5 @@
-# Copyright (C) 2016 The CyanogenMod Project
-# Copyright (C) 2018 The LineageOS Project
+#
+# Copyright (C) 2015 The Evervolv Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,29 +13,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 2560
-TARGET_SCREEN_WIDTH := 1440
-TARGET_BOOTANIMATION_HALF_RES := true
-
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common evervolv stuff.
+$(call inherit-product, $(SRC_EVERVOLV_DIR)/config/common_full_phone.mk)
 
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Inherit from hardware-specific part of the product configuration
-$(call inherit-product, $(LOCAL_PATH)/device.mk)
+$(call inherit-product, device/moto/shamu/device.mk)
+$(call inherit-product-if-exists, vendor/moto/shamu/shamu-vendor.mk)
 
-# Inherit proprietary files
-$(call inherit-product, vendor/motorola/shamu/shamu-vendor.mk)
+# Bootanimation
+BOOT_ANIMATION_SIZE := 1440p
 
-# Device identifier. This must come after all inclusions
-PRODUCT_NAME := lineage_shamu
-PRODUCT_DEVICE := shamu
-PRODUCT_BRAND := google
-PRODUCT_MODEL := Nexus 6
+#
+# Evervolv product configuration.
+#
+PRODUCT_NAME    := ev_shamu
+PRODUCT_BRAND   := google
+PRODUCT_DEVICE  := shamu
+PRODUCT_MODEL   := Nexus 6
 PRODUCT_MANUFACTURER := motorola
+
+PRODUCT_CODENAME := Immanis
+PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your Google Nexus 6\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=shamu \
