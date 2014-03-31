@@ -133,3 +133,4 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.shamu
 EXTENDED_FONT_FOOTPRINT := true
 
 -include vendor/moto/shamu/BoardConfigVendor.mk
+-include device/moto/shamu/BoardConfigEV.mk
