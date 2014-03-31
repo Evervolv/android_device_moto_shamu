@@ -126,3 +126,4 @@ USE_CLANG_PLATFORM_BUILD := true
 DONT_DEXPREOPT_PREBUILTS := true
 
 -include vendor/moto/shamu/BoardConfigVendor.mk
+-include device/moto/shamu/BoardConfigEV.mk
