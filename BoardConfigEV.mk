@@ -1,3 +1,6 @@
+#Device Settings
+BOARD_DEVICE_SETTINGS := device/moto/shamu/DeviceSettings
+
 # Disable Modules
 TARGET_KERNEL_NO_MODULES := true
 

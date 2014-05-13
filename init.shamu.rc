@@ -341,6 +341,11 @@ on post-fs-data
     mkdir /data/adspd 0770 media media
     mkdir /data/adspd/1 0770 media media
 
+    # Vibrator permissions
+    chown root system /sys/vibrator/pwmvalue
+    chmod 0664 /sys/vibrator/pwmvalue
+    restorecon /sys/vibrator/pwmvalue
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
