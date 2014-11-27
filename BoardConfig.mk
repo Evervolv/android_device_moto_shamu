@@ -125,5 +125,8 @@ USE_CLANG_PLATFORM_BUILD := true
 # Disable dex-preopt of prebuilts to save space.
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Enable workaround for slow rom flash
+BOARD_SUPPRESS_SECURE_ERASE := true
+
 -include vendor/moto/shamu/BoardConfigVendor.mk
 -include device/moto/shamu/BoardConfigEV.mk
