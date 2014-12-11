@@ -31,6 +31,9 @@ PRODUCT_COPY_FILES := \
 endif
 
 PRODUCT_COPY_FILES += \
+    device/moto/shamu/twrp.fstab:recovery/root/etc/twrp.fstab
+
+PRODUCT_COPY_FILES += \
     device/moto/shamu/init.shamu.rc:root/init.shamu.rc \
     device/moto/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
     device/moto/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
