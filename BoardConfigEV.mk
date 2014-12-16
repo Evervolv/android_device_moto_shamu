@@ -10,6 +10,9 @@ TARGET_KERNEL_CONFIG := evervolv_shamu_defconfig
 # Enable workaround for slow rom flash
 BOARD_SUPPRESS_SECURE_ERASE := true
 
+# Time
+BOARD_USES_QC_TIME_SERVICES := true
+
 # TWRP
 TW_THEME := portrait_hdpi
 TW_INCLUDE_L_CRYPTO := true
