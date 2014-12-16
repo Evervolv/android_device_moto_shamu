@@ -120,6 +120,12 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.shamu
 
+# Qualcomm Time Services
+BOARD_USES_QC_TIME_SERVICES := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 USE_CLANG_PLATFORM_BUILD := true
 
 # Disable dex-preopt of prebuilts to save space.
