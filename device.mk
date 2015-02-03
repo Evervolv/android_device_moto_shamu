@@ -207,8 +207,8 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 # for launcher layout
-PRODUCT_PACKAGES += \
-    ShamuLayout
+#PRODUCT_PACKAGES += \
+#    ShamuLayout
 
 PRODUCT_PACKAGES += \
     bdAddrLoader
