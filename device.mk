@@ -271,6 +271,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.alt_mbn_name=tmo_alt.mbn \
     ro.com.android.prov_mobiledata=false
 
+# Rich Communications Service is disabled in 5.1
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.rcs.supported=0
+
 #Reduce IMS logging
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.ims.disableDebugLogs=1 \
