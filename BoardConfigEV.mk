@@ -7,8 +7,11 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_SOURCE := kernel/moto/shamu
 TARGET_KERNEL_CONFIG := shamu_defconfig
 
+# Enable workaround for slow rom flash
+BOARD_SUPPRESS_SECURE_ERASE := true
+
 # TWRP
-DEVICE_RESOLUTION := 1440x2560
+TW_THEME := portrait_hdpi
 TW_INCLUDE_L_CRYPTO := true
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
