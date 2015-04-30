@@ -14,7 +14,7 @@
 # limitations under the License.
 
 # Call this first so apn list is actually copied
-$(call inherit-product, $(SRC_EVERVOLV_DIR)/config/gsm.mk)
+$(call inherit-product, $(SRC_EVERVOLV_DIR)/config/apns.mk)
 
 # Product makefile
 $(call inherit-product, device/moto/shamu/aosp_shamu.mk)
@@ -28,9 +28,8 @@ $(call inherit-product, $(SRC_EVERVOLV_DIR)/config/dictionaries/intl.mk)
 # Extra overlay for Evervolv
 PRODUCT_PACKAGE_OVERLAYS += device/moto/shamu/overlay_ev
 
-# Copy bootanimation
-PRODUCT_COPY_FILES += \
-    vendor/ev/prebuilt/1080p/media/bootanimation.zip:system/media/bootanimation.zip
+# Bootanimation
+BOOT_ANIMATION_SIZE := 1440p
 
 #
 # Evervolv product configuration.
