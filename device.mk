@@ -236,6 +236,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # never dexopt the MotoSignature
 $(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
 
+# Include IMSEnabler
+PRODUCT_PACKAGES += \
+    IMSEnabler
+
 # Rich Communications Service is disabled in 5.1
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.rcs.supported=0
