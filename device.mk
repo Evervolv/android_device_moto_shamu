@@ -271,6 +271,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.alt_mbn_name=tmo_alt.mbn \
     ro.com.android.prov_mobiledata=false
 
+# never dexopt the MotoSignature
+$(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
+
 # WiFi calling
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.iwlan.enable=true \
