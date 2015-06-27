@@ -236,6 +236,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # never dexopt the MotoSignature
 $(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
 
+# WiFi calling
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true \
+    persist.radio.ignore_ims_wlan=1 \
+    persist.radio.data_con_rprt=1
+
 # Include IMSEnabler
 PRODUCT_PACKAGES += \
     IMSEnabler
