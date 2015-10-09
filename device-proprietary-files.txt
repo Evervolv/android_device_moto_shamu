@@ -131,6 +131,7 @@ vendor/lib/libchromatix_imx135_snapshot.so
 vendor/lib/libchromatix_imx135_video_hd.so
 vendor/lib/libchromatix_imx214_common.so
 vendor/lib/libchromatix_imx214_cpp.so
+vendor/lib/libchromatix_imx214_cpp_snap.so
 vendor/lib/libchromatix_imx214_default_video.so
 vendor/lib/libchromatix_imx214_hfr_120.so
 vendor/lib/libchromatix_imx214_hfr_60.so
@@ -225,6 +226,9 @@ etc/firmware/cpp_firmware_v1_2_0.fw
 etc/firmware/cpp_firmware_v1_6_0.fw
 etc/firmware/cpp_firmware_v1_8_0.fw
 
+# Capsense firmware
+vendor/firmware/cy8c20247_24lkxi.hex
+
 # CNE
 bin/cnd
 -priv-app/CNEService/CNEService.apk
@@ -242,6 +246,25 @@ etc/diag/mdm/FIT_V16_2_volte_full_ip.cfg
 etc/diag/mdm/FIT_V16_3_audio.cfg
 etc/diag/mdm/sensors_qxdm.cfg
 etc/diag/sensors_qxdm.cfg
+
+# DM/Sprint
+-app/DMConfigUpdate/DMConfigUpdate.apk
+-app/HiddenMenu/HiddenMenu.apk
+etc/permissions/com.android.omadm.service.xml
+etc/sysconfig/whitelist_com.android.omadm.service.xml
+lib/libdmengine.so
+lib/libdmjavaplugin.so
+-priv-app/CQATest/CQATest.apk
+-priv-app/ConnMO/ConnMO.apk
+-priv-app/DCMO/DCMO.apk
+-priv-app/DMService/DMService.apk
+lib/libdmengine.so:priv-app/DMService/lib/arm/libdmengine.so
+lib/libdmjavaplugin.so:priv-app/DMService/lib/arm/libdmjavaplugin.so
+-priv-app/DiagMon/DiagMon.apk
+-priv-app/GCS/GCS.apk
+-priv-app/LifetimeData/LifetimeData.apk
+-priv-app/SprintDM/SprintDM.apk
+
 
 # DRM
 bin/qseecomd
@@ -265,6 +288,9 @@ vendor/firmware/widevine.b01
 vendor/firmware/widevine.b02
 vendor/firmware/widevine.b03
 vendor/firmware/widevine.mdt
+
+# Project Fi
+-app/Tycho/Tycho.apk
 
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
@@ -307,26 +333,25 @@ vendor/lib/libloc_api_v02.so
 vendor/lib/libloc_ds_api.so
 
 # IMS/HD Voice
--app/RCSBootstraputil/RCSBootstraputil.apk
--app/RcsImsBootstraputil/RcsImsBootstraputil.apk
--app/RcsService/RcsService.apk
 -app/atfwd/atfwd.apk
 -app/ims/ims.apk
+lib/libimscamera_jni.so:app/ims/lib/arm/libimscamera_jni.so
+lib/libimsmedia_jni.so:app/ims/lib/arm/libimsmedia_jni.so
 bin/ATFWD-daemon
 bin/imsdatadaemon
 bin/imsqmidaemon
-etc/permissions/com.motorola.ims.rcsmanager.xml
 etc/permissions/com.verizon.hardware.telephony.ehrpd.xml
 etc/permissions/com.verizon.hardware.telephony.lte.xml
 etc/permissions/com.verizon.ims.xml
 etc/permissions/rcsimssettings.xml
 etc/permissions/rcsservice.xml
--framework/com.motorola.ims.rcsmanager.jar
 -framework/com.verizon.hardware.telephony.ehrpd.jar
 -framework/com.verizon.hardware.telephony.lte.jar
 -framework/com.verizon.ims.jar
 -framework/rcsimssettings.jar
 -framework/rcsservice.jar
+lib/libimscamera_jni.so
+lib/libimsmedia_jni.so
 vendor/lib/lib-dplmedia.so
 vendor/lib/lib-ims-setting-jni.so
 vendor/lib/lib-ims-settings.so
@@ -384,16 +409,14 @@ bin/qmi_motext_hook
 bin/qmuxd
 bin/radish
 bin/tcmd_mini
-etc/permissions/org.simalliance.openmobileapi.xml
--framework/org.simalliance.openmobileapi.jar
 lib/libdetectmodem.so
 lib/libmdmdetect.so
-lib/librmnetctl.so
 vendor/lib/libconfigdb.so
 vendor/lib/libmdmcutback.so
 vendor/lib/libnetmgr.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/libril-qcril-hook-oem.so
+vendor/lib/libsysutils_local.so
 vendor/lib/libxml.so
 
 # Sensors
@@ -429,7 +452,6 @@ bin/usbhub_init
 etc/permissions/com.motorola.DirectedSMSProxy.xml
 etc/permissions/com.vzw.vzwapnlib.xml
 -priv-app/AppDirectedSMSProxy/AppDirectedSMSProxy.apk
--priv-app/appdirectedsmspermission/appdirectedsmspermission.apk
 -priv-app/MotoSignatureApp/MotoSignatureApp.apk
 -priv-app/VZWAPNService/VZWAPNService.apk
 
@@ -472,4 +494,3 @@ vendor/firmware/aonvr2.bin
 
 # WiFi
 vendor/firmware/bcm20795_firmware.ncd
-vendor/firmware/bcm4354A2.hcd
