@@ -265,6 +265,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.sensor.debug=0 \
     vidc.debug.level=1
 
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.qmi.adb_logmask=0
+
 #Disable QC Oem Hook
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.oem_socket=false
