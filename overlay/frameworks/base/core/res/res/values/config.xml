@@ -274,6 +274,7 @@
     <bool name="config_dozeAfterScreenOff">true</bool>
     <bool name="config_dozePulsePickup">true</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_enableAutoPowerModes">true</bool>
 
     <!-- Is the device capable of hot swapping an UICC Card -->
     <bool name="config_hotswapCapable">true</bool>
