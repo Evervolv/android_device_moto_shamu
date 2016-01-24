@@ -427,3 +427,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Low latency audio buffer size in frames
 PRODUCT_PROPERTY_OVERRIDES += \
     audio_hal.period_size=192
+
+# IO Scheduler
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=bfq
