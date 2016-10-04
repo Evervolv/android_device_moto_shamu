@@ -44,4 +44,6 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 PRODUCT_CODENAME := Ingres
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your Google Nexus 6\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=shamu BUILD_FINGERPRINT=google/shamu/shamu:5.1/LMY47E/1748839:user/release-keys PRIVATE_BUILD_DESC="shamu-user 5.1 LMY47E 1748839 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT=google/shamu/shamu:7.0/NBD90Z/3264873:user/release-keys \
+    PRIVATE_BUILD_DESC="shamu-user 7.0 NBD90Z 3264873 release-keys"
