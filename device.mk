@@ -287,6 +287,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.ignore_ims_wlan=1 \
     persist.radio.data_con_rprt=1 \
     persist.radio.alt_mbn_name=tmo_alt.mbn \
+    ro.com.android.prov_mobiledata=false
     fmas.spkr_6ch=35,20,110 \
     fmas.spkr_2ch=35,25 \
     fmas.spkr_angles=10 \
