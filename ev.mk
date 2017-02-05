@@ -25,9 +25,6 @@ $(call inherit-product, $(SRC_EVERVOLV_DIR)/config/common_full_phone.mk)
 # Pull all dictionaries
 $(call inherit-product, $(SRC_EVERVOLV_DIR)/config/dictionaries/intl.mk)
 
-# Extra overlay for Evervolv
-PRODUCT_PACKAGE_OVERLAYS += device/moto/shamu/overlay_ev
-
 # Bootanimation
 BOOT_ANIMATION_SIZE := 1440p
 

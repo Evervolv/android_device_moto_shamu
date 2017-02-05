@@ -165,11 +165,6 @@ PRODUCT_PACKAGES += \
     libaudio-resampler
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true \
-    persist.audio.dualmic.config=endfire \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=false \
     ro.audio.monitorRotation=true \
     drm.service.enabled=true \
     ro.facelock.black_timeout=400 \
@@ -177,7 +172,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.facelock.rec_timeout=2500 \
     ro.facelock.lively_timeout=2500 \
     ro.facelock.est_max_time=600 \
-    ro.facelock.use_intro_anim=false
+    ro.facelock.use_intro_anim=false \
+    media.aac_51_output_enabled=true \
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -243,7 +239,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1 \
     persist.radio.no_wait_for_card=1 \
-    persist.radio.data_no_toggle=1
+    persist.radio.data_no_toggle=1 \
+    persist.radio.sib16_support=1 \
+    persist.data.qmi.adb_logmask=0 \
+    persist.radio.alt_mbn_name=tmo_alt.mbn \
+    ro.com.android.prov_mobiledata=false
 
 # never dexopt the MotoSignature
 $(call add-product-dex-preopt-module-config,MotoSignatureApp,disable)
@@ -273,26 +273,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.mct.debug.mask=1 \
     persist.camera.sensor.debug=0 \
     vidc.debug.level=1
-
-#Additional radio and audio
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.rcs.supported=0 \
-    persist.audio.dualmic.config=endfire \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=false \
-    persist.data.qmi.adb_logmask=0 \
-    persist.data.iwlan.enable=true \
-    persist.radio.sib16_support=1 \
-    persist.radio.ignore_ims_wlan=1 \
-    persist.radio.data_con_rprt=1 \
-    persist.radio.alt_mbn_name=tmo_alt.mbn \
-    ro.com.android.prov_mobiledata=false
-    fmas.spkr_6ch=35,20,110 \
-    fmas.spkr_2ch=35,25 \
-    fmas.spkr_angles=10 \
-    fmas.spkr_sgain=0 \
-    media.aac_51_output_enabled=true
 
 #Disable QC Oem Hook
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -473,6 +453,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     sys.usb.config=mtp,adb \
     persist.sys.usb.config=mtp,adb \
     ro.adb.secure=0
+
+# miracast props
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.wfd.enable=1﻿
 
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
