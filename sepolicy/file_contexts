@@ -107,7 +107,6 @@
 /system/bin/mdm_helper_proxy                          u:object_r:mdm_helper_exec:s0
 /system/bin/mm-qcamera-daemon                         u:object_r:camera_exec:s0
 /system/bin/qmuxd                                     u:object_r:qmux_exec:s0
-/system/bin/qseecomd                                  u:object_r:tee_exec:s0
 /system/bin/sensors\.qcom                             u:object_r:sensors_exec:s0
 /system/bin/tcmd_mini                                 u:object_r:tcmd_exec:s0
 
@@ -128,6 +127,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator@1\.1-service\.shamu  u:object_r:hal_vibrator_default_exec:s0
 /(vendor|system/vendor)/bin/timekeep                           u:object_r:timekeep_exec:s0
 /(vendor|system/vendor)/bin/thermal-engine                     u:object_r:thermald_exec:s0
+/(vendor|system/vendor)/bin/qseecomd                           u:object_r:tee_exec:s0
 
 ###################################
 # sysfs files
