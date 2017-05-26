@@ -7,3 +7,10 @@ allow hal_gnss sysfs_socinfo:file { read open getattr };
 userdebug_or_eng(`
   allow hal_gnss diag_device:chr_file { read write open ioctl};
 ')
+
+# for SUPL/911 related compliance cases
+allow hal_gnss_default netmgrd:unix_stream_socket connectto;
+allow hal_gnss_default self:{
+    netlink_route_socket
+    netlink_socket
+} create_socket_perms_no_ioctl;
