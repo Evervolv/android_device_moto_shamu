@@ -27,7 +27,8 @@ LOCAL_PROPRIETARY_MODULE := true
 LOCAL_SHARED_LIBRARIES := \
     liblog \
     libcutils \
-    libdl
+    libdl \
+    libutils
 
 LOCAL_32_BIT_ONLY := true
 include $(BUILD_SHARED_LIBRARY)

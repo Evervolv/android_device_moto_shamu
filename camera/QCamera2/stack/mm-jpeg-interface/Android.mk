@@ -46,7 +46,8 @@ LOCAL_SHARED_LIBRARIES := \
     libdl \
     libcutils \
     liblog \
-    libqomx_core
+    libqomx_core \
+    libutils
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true

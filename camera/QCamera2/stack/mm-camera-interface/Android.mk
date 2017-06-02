@@ -48,7 +48,8 @@ LOCAL_MODULE := libmmcamera_interface
 LOCAL_SHARED_LIBRARIES := \
     libdl \
     libcutils \
-    liblog
+    liblog \
+    libutils
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
