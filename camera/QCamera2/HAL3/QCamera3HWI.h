@@ -34,7 +34,7 @@
 #include <utils/List.h>
 #include <utils/KeyedVector.h>
 #include <hardware/camera3.h>
-#include <camera/CameraMetadata.h>
+#include <CameraMetadata.h>
 #include "QCamera3HALHeader.h"
 #include "QCamera3Channel.h"
 
@@ -54,6 +54,7 @@ extern "C" {
 #endif //#ifdef CDBG_HIGH
 #define CDBG_HIGH(fmt, args...) ALOGD_IF(gCamHal3LogLevel >= 1, fmt, ##args)
 
+using ::android::hardware::camera::common::V1_0::helper::CameraMetadata;
 using namespace android;
 
 namespace qcamera {

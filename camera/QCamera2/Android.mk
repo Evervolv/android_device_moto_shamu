@@ -64,8 +64,10 @@ LOCAL_C_INCLUDES += \
     hardware/qcom/display/$(TARGET_BOARD_PLATFORM)/libgralloc \
     hardware/qcom/display/$(TARGET_BOARD_PLATFORM)/libqdutils
 
+LOCAL_STATIC_LIBRARIES := \
+    android.hardware.camera.common@1.0-helper
+
 LOCAL_SHARED_LIBRARIES := \
-    libcamera_client \
     libcamera_metadata \
     libcutils \
     libdl \
