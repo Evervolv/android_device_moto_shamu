@@ -57,7 +57,8 @@ LOCAL_C_INCLUDES += \
     frameworks/native/include/media/hardware \
     device/moto/shamu/camera/QCamera2/HAL
 
-LOCAL_HEADER_LIBRARIES := generated_kernel_headers
+LOCAL_HEADER_LIBRARIES := libhardware_headers media_plugin_headers
+LOCAL_HEADER_LIBRARIES += generated_kernel_headers
 
 #LOCAL_STATIC_LIBRARIES := libqcamera2_util
 LOCAL_C_INCLUDES += \
