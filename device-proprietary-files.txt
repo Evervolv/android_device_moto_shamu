@@ -64,7 +64,7 @@ vendor/firmware/right.boost.voice.eq
 vendor/firmware/right.boost_voice_table.preset
 
 # Camera
-bin/mm-qcamera-daemon
+bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
 vendor/lib/libactuator_lc898122_camcorder.so
 vendor/lib/libactuator_lc898122_camera.so
 vendor/lib/libactuator_lc898122.so
@@ -164,8 +164,8 @@ vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc.so
 
 # Camera firmware
-etc/firmware/cpp_firmware_v1_6_0.fw
-etc/firmware/cpp_firmware_v1_8_0.fw
+etc/firmware/cpp_firmware_v1_6_0.fw:vendor/firmware/cpp_firmware_v1_6_0.fw
+etc/firmware/cpp_firmware_v1_8_0.fw:vendor/firmware/cpp_firmware_v1_8_0.fw
 
 # Capsense firmware
 vendor/firmware/cy8c20247_24lkxi.hex
