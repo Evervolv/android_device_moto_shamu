@@ -469,3 +469,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl
+
+# RIL
+PRODUCT_PACKAGES += \
+    libxml2
