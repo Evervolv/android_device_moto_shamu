@@ -336,8 +336,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
     NfcNci \
+    nfc_nci.shamu \
     Tag \
-    android.hardware.nfc@1.0-impl
+    android.hardware.nfc@1.0-impl \
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
