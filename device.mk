@@ -253,6 +253,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/init.mmi.touch.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.mmi.touch.sh
 
+# Vendor SPL
+VENDOR_SECURITY_PATCH := "2017-10-05"
+
 # Verity
 # Only include verity on user builds for LineageOS
 ifeq ($(TARGET_BUILD_VARIANT),user)
