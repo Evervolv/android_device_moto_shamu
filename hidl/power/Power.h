@@ -19,9 +19,7 @@
 #define ANDROID_HARDWARE_POWER_V1_1_POWER_H
 
 #include <android/hardware/power/1.1/IPower.h>
-#ifdef PERF_PROFILES
-#include <vendor/lineage/power/1.0/ILineagePower.h>
-#endif
+#include <vendor/evervolv/power/1.0/IEvervolvPower.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
 #include <hardware/power.h>
@@ -35,19 +33,12 @@ namespace implementation {
 using ::android::hardware::power::V1_0::Feature;
 using ::android::hardware::power::V1_0::PowerHint;
 using ::android::hardware::power::V1_1::IPower;
-#ifdef PERF_PROFILES
-using ::vendor::lineage::power::V1_0::ILineagePower;
-using ::vendor::lineage::power::V1_0::LineageFeature;
-#endif
+using ::vendor::evervolv::power::V1_0::IEvervolvPower;
+using ::vendor::evervolv::power::V1_0::EvervolvFeature;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
 
-#ifdef PERF_PROFILES
-struct Power : public IPower, public ILineagePower
-#else
-struct Power : public IPower
-#endif
-{
+struct Power : public IPower, public IEvervolvPower {
     // Methods from ::android::hardware::power::V1_0::IPower follow.
 
     Power();
@@ -62,10 +53,8 @@ struct Power : public IPower
     Return<void> getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) override;
     Return<void> powerHintAsync(PowerHint hint, int32_t data) override;
 
-#ifdef PERF_PROFILES
-    // Methods from ::vendor::lineage::power::V1_0::ILineagePower follow.
-    Return<int32_t> getFeature(LineageFeature feature) override;
-#endif
+    // Methods from ::vendor::evervolv::power::V1_0::IEvervolvPower follow.
+    Return<int32_t> getFeature(EvervolvFeature feature) override;
 
     // Methods from ::android::hidl::base::V1_0::IBase follow.
 

@@ -49,6 +49,18 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# Dexpreopt
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      DONT_DEXPREOPT_PREBUILTS := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+
 # EGL
 # Maximum GLES shader cache size for each app to store the compiled shader
 # binaries. Decrease the size if RAM or Flash Storage size is a limitation
@@ -74,7 +86,6 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 25253773312
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_FS_CONFIG_GEN += device/moto/shamu/config.fs
-TARGET_USES_MKE2FS := true
 
 # Fonts (reduce system image size)
 EXCLUDE_SERIF_FONTS := true

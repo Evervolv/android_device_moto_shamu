@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014, The Linux Foundation. All rights reserved.
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2019 The LineageOS Project
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -31,6 +31,7 @@
 #define LOG_NIDEBUG 0
 
 #include <errno.h>
+#include <time.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -51,7 +52,6 @@
 
 static int first_display_off_hint;
 
-#ifdef PERF_PROFILES
 static int current_power_profile = PROFILE_BALANCED;
 
 /* power save mode: max 2 CPUs, max 1.2 GHz */
@@ -96,8 +96,9 @@ int get_number_of_profiles()
 }
 #endif
 
-static int set_power_profile(int profile)
+static int set_power_profile(void *data)
 {
+    int profile = data ? *((int*)data) : 0;
     int ret = -EINVAL;
     const char *profile_name = NULL;
 
@@ -142,7 +143,6 @@ static int set_power_profile(int profile)
     }
     return ret;
 }
-#endif
 
 /* fling boost: min 3 CPUs, min 1.3 GHz */
 static int resources_interaction_fling_boost[] = {
@@ -162,7 +162,6 @@ static int resources_interaction_boost[] = {
     CPU3_MIN_FREQ_NONTURBO_MAX + 2
 };
 
-#ifdef PERF_PROFILES
 /* fling boost: min 3 CPUs, min 1.5 GHz */
 static int resources_interaction_fling_boost_perf[] = {
     CPUS_ONLINE_MIN_3,
@@ -180,7 +179,6 @@ static int resources_interaction_boost_perf[] = {
     CPU2_MIN_FREQ_NONTURBO_MAX + 5,
     CPU3_MIN_FREQ_NONTURBO_MAX + 5
 };
-#endif
 
 static int resources_launch[] = {
     CPUS_ONLINE_MIN_2,
@@ -194,7 +192,34 @@ const int DEFAULT_INTERACTIVE_DURATION   =  200; /* ms */
 const int PERF_INTERACTIVE_DURATION      =  500; /* ms */
 const int MIN_FLING_DURATION             = 1500; /* ms */
 const int MAX_INTERACTIVE_DURATION       = 5000; /* ms */
-const int LAUNCH_DURATION                = 2000; /* ms */
+const int MAX_LAUNCH_DURATION            = 5000; /* ms */
+
+static int process_activity_launch_hint(void *data)
+{
+    static int launch_handle = -1;
+    static int launch_mode = 0;
+
+    // release lock early if launch has finished
+    if (!data) {
+        if (CHECK_HANDLE(launch_handle)) {
+            release_request(launch_handle);
+            launch_handle = -1;
+        }
+        launch_mode = 0;
+        return HINT_HANDLED;
+    }
+
+    if (!launch_mode) {
+        launch_handle = interaction_with_handle(launch_handle, MAX_LAUNCH_DURATION,
+                ARRAY_SIZE(resources_launch), resources_launch);
+        if (!CHECK_HANDLE(launch_handle)) {
+            ALOGE("Failed to perform launch boost");
+            return HINT_NONE;
+        }
+        launch_mode = 1;
+    }
+    return HINT_HANDLED;
+}
 
 int power_hint_override(power_hint_t hint, void *data)
 {
@@ -204,9 +229,8 @@ int power_hint_override(power_hint_t hint, void *data)
     static int s_previous_duration = 0;
     int duration;
 
-#ifdef PERF_PROFILES
     if (hint == POWER_HINT_SET_PROFILE) {
-        if (set_power_profile(*(int32_t *)data) < 0)
+        if (set_power_profile(data) < 0)
             ALOGE("mpdecision not started in a timely manner.");
         return HINT_HANDLED;
     }
@@ -216,19 +240,14 @@ int power_hint_override(power_hint_t hint, void *data)
             current_power_profile == PROFILE_HIGH_PERFORMANCE) {
         return HINT_HANDLED;
     }
-#endif
 
     switch (hint) {
         case POWER_HINT_INTERACTION:
-#ifdef PERF_PROFILES
             if (current_power_profile == PROFILE_BIAS_POWER) {
                 duration = PERF_INTERACTIVE_DURATION;
             } else {
                 duration = DEFAULT_INTERACTIVE_DURATION;
             }
-#else
-            duration = DEFAULT_INTERACTIVE_DURATION;
-#endif
             if (data) {
                 int input_duration = *((int*)data);
                 if (input_duration > duration) {
@@ -247,7 +266,6 @@ int power_hint_override(power_hint_t hint, void *data)
             s_previous_boost_timespec = cur_boost_timespec;
             s_previous_duration = duration;
 
-#ifdef PERF_PROFILES
             if (current_power_profile == PROFILE_BIAS_POWER) {
                 if (duration >= MIN_FLING_DURATION) {
                     interaction(duration, ARRAY_SIZE(resources_interaction_fling_boost_perf),
@@ -265,21 +283,9 @@ int power_hint_override(power_hint_t hint, void *data)
                             resources_interaction_boost);
                 }
             }
-#else
-            if (duration >= MIN_FLING_DURATION) {
-                interaction(duration, ARRAY_SIZE(resources_interaction_fling_boost),
-                        resources_interaction_fling_boost);
-            } else {
-                interaction(duration, ARRAY_SIZE(resources_interaction_boost),
-                        resources_interaction_boost);
-            }
-#endif
             return HINT_HANDLED;
         case POWER_HINT_LAUNCH:
-            duration = LAUNCH_DURATION;
-            interaction(duration, ARRAY_SIZE(resources_launch),
-                    resources_launch);
-            return HINT_HANDLED;
+            return process_activity_launch_hint(data);
         default:
             break;
     }

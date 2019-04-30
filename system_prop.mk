@@ -14,7 +14,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     ro.audio.flinger_standbytime_ms=300 \
     ro.audio.monitorRotation=true \
-    ro.config.vc_call_vol_steps=6 \
+    ro.config.media_vol_steps=25 \
+    ro.config.vc_call_vol_steps=7 \
     ro.qc.sdk.audio.fluencetype=fluence
 
 # Bluetooth
@@ -88,6 +89,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+
+# Privileged permission whitelisting
+ro.control_privapp_permissions=log
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
