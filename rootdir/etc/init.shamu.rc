@@ -343,7 +343,7 @@ service netmgrd /system/vendor/bin/netmgrd
     writepid /dev/cpuset/system-background/tasks
 
 service sensors /system/bin/sensors.qcom
-    class core
+    class early_hal
     user root
     group root wakelock
     writepid /dev/cpuset/system-background/tasks
