@@ -17,6 +17,7 @@
 
 # Build System
 BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
+BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
