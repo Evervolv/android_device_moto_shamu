@@ -162,6 +162,8 @@ DEVICE_PACKAGE_OVERLAYS := \
     $(LOCAL_PATH)/overlay-ev
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
+    $(LOCAL_PATH)/overlay-ev/vendor/ev/sdk
 
 # Permissions
 PRODUCT_COPY_FILES += \
