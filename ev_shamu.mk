@@ -34,6 +34,7 @@ PRODUCT_BRAND   := google
 PRODUCT_DEVICE  := shamu
 PRODUCT_MODEL   := Nexus 6
 PRODUCT_MANUFACTURER := motorola
+PRODUCT_RESTRICT_VENDOR_FILES := false
 
 PRODUCT_CODENAME := Immanis
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your Google Nexus 6\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
