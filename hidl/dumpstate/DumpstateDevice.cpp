@@ -18,9 +18,12 @@
 
 #include "DumpstateDevice.h"
 
+#include <android-base/properties.h>
 #include <log/log.h>
 
 #include "DumpstateUtil.h"
+
+#define VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY "persist.vendor.verbose_logging_enabled"
 
 using android::os::dumpstate::CommandOptions;
 using android::os::dumpstate::DumpFileToFd;
@@ -29,20 +32,41 @@ using android::os::dumpstate::RunCommandToFd;
 namespace android {
 namespace hardware {
 namespace dumpstate {
-namespace V1_0 {
+namespace V1_1 {
 namespace implementation {
 
 // Methods from ::android::hardware::dumpstate::V1_0::IDumpstateDevice follow.
 Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
+    // Ignore return value, just return an empty status.
+    dumpstateBoard_1_1(handle, DumpstateMode::DEFAULT, 30 * 1000 /* timeoutMillis */);
+    return Void();
+}
+
+// Methods from ::android::hardware::dumpstate::V1_1::IDumpstateDevice follow.
+Return<DumpstateStatus> DumpstateDevice::dumpstateBoard_1_1(const hidl_handle& handle,
+                                                            const DumpstateMode mode,
+                                                            const uint64_t timeoutMillis) {
+    // Unused arguments.
+    (void) timeoutMillis;
+
     if (handle == nullptr || handle->numFds < 1) {
         ALOGE("no FDs\n");
-        return Void();
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
     }
 
     int fd = handle->data[0];
     if (fd < 0) {
         ALOGE("invalid FD: %d\n", handle->data[0]);
-        return Void();
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
+    }
+
+    if (mode == DumpstateMode::WEAR) {
+        // We aren't a Wear device.
+        ALOGE("Unsupported mode: %d\n", mode);
+        return DumpstateStatus::UNSUPPORTED_MODE;
+    } else if (mode < DumpstateMode::FULL || mode > DumpstateMode::DEFAULT) {
+        ALOGE("Invalid mode: %d\n", mode);
+        return DumpstateStatus::ILLEGAL_ARGUMENT;
     }
 
     DumpFileToFd(fd, "TZ ramoops annotation", "/sys/fs/pstore/annotate-ramoops");
@@ -72,11 +96,20 @@ Return<void> DumpstateDevice::dumpstateBoard(const hidl_handle& handle) {
     RunCommandToFd(fd, "ION CLIENTS", {"/system/bin/sh", "-c", "for f in $(ls /d/ion/clients/*); do echo $f; cat $f; done"}, CommandOptions::AS_ROOT);
     RunCommandToFd(fd, "ION HEAPS",   {"/system/bin/sh", "-c", "for f in $(ls /d/ion/heaps/*);   do echo $f; cat $f; done"}, CommandOptions::AS_ROOT);
 
+    return DumpstateStatus::OK;
+}
+
+Return<void> DumpstateDevice::setVerboseLoggingEnabled(const bool enable) {
+    android::base::SetProperty(VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY, enable ? "true" : "false");
     return Void();
 }
 
+Return<bool> DumpstateDevice::getVerboseLoggingEnabled() {
+    return android::base::GetBoolProperty(VENDOR_VERBOSE_LOGGING_ENABLED_PROPERTY, false);
+}
+
 }  // namespace implementation
-}  // namespace V1_0
+}  // namespace V1_1
 }  // namespace dumpstate
 }  // namespace hardware
 }  // namespace android

@@ -16,8 +16,8 @@ cc_binary {
     relative_install_path: "hw",
     proprietary: true,
 
-    name: "android.hardware.dumpstate@1.0-service.shamu",
-    init_rc: ["android.hardware.dumpstate@1.0-service.shamu.rc"],
+    name: "android.hardware.dumpstate@1.1-service.shamu",
+    init_rc: ["android.hardware.dumpstate@1.1-service.shamu.rc"],
     srcs: [
         "DumpstateDevice.cpp" ,
         "service.cpp"
@@ -35,5 +35,6 @@ cc_binary {
         "liblog" ,
         "libutils" ,
         "android.hardware.dumpstate@1.0" ,
+        "android.hardware.dumpstate@1.1",
     ],
 }

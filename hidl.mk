@@ -37,7 +37,7 @@ PRODUCT_PACKAGES += \
 
 # Dumpstate
 PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.0-service.shamu
+    android.hardware.dumpstate@1.1-service.shamu
 
 # GNSS
 PRODUCT_PACKAGES += \
