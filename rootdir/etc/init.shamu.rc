@@ -65,6 +65,7 @@ on fs
 
 on late-fs
     # Start services for bootanim
+    start vendor.power-hal-1-2
     start surfaceflinger
     start bootanim
     start vendor.configstore-hal
