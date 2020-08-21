@@ -277,6 +277,7 @@ endif
 PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
+    TetheringConfigOverlay \
     wifilogd \
     WifiOverlay \
     wpa_supplicant \
