@@ -13,6 +13,7 @@
 /data/ss-ram-dumps(/.*)?                              u:object_r:ram_dump_logs:s0
 /data/system/dropbox-add(/.*)?                        u:object_r:dropbox_data_file:s0
 /data/time(/.*)?                                      u:object_r:time_data_file:s0
+/data/vendor/mediadrm(/.*)?                           u:object_r:mediadrm_vendor_data_file:s0
 
 ###################################
 # Dev nodes
@@ -34,6 +35,7 @@
 /dev/qseecom                                          u:object_r:tee_device:s0
 /dev/ramdump_.*                                       u:object_r:ramdump_device:s0
 /dev/sensors                                          u:object_r:sensors_device:s0
+/dev/stune(/.*)?                                      u:object_r:cgroup:s0
 /dev/smem_log                                         u:object_r:shared_log_device:s0
 /dev/subsys_esoc0                                     u:object_r:radio_device:s0
 /dev/ttydiag2                                         u:object_r:diag_device:s0
@@ -70,15 +72,18 @@
 #
 /dev/socket/adspdsock                                 u:object_r:adspd_socket:s0
 /dev/socket/cnd                                       u:object_r:cnd_socket:s0
-/dev/socket/ims_qmid                                  u:object_r:ims_socket:s0
-/dev/socket/ims_datad                                 u:object_r:ims_socket:s0
-/dev/socket/ims_rtpd                                  u:object_r:ims_socket:s0
 /dev/socket/mpdecision(/.*)?                          u:object_r:mpdecision_socket:s0
 /dev/socket/qmux_audio(/.*)?                          u:object_r:qmuxd_socket:s0
 /dev/socket/qmux_bluetooth(/.*)?                      u:object_r:qmuxd_socket:s0
 /dev/socket/qmux_gps(/.*)?                            u:object_r:qmuxd_socket:s0
 /dev/socket/qmux_radio(/.*)?                          u:object_r:qmuxd_socket:s0
 /dev/socket/sensor_ctl_socket                         u:object_r:sensors_socket:s0
+
+###################################
+# firmware files
+#
+/firmware(/.*)?                                       u:object_r:firmware_file:s0
+/fsg(/.*)?                                            u:object_r:fsg_file:s0
 
 ###################################
 # persist files
@@ -95,11 +100,7 @@
 # System files
 #
 /system/bin/adspd                                     u:object_r:adspd_exec:s0
-/system/bin/ATFWD-daemon                              u:object_r:atfwd_exec:s0
 /system/bin/cnd                                       u:object_r:cnd_exec:s0
-/system/bin/imsdatadaemon                             u:object_r:ims_exec:s0
-/system/bin/imsqmidaemon                              u:object_r:ims_exec:s0
-/system/bin/ims_rtp_daemon                            u:object_r:ims_exec:s0
 /system/bin/irsc_util                                 u:object_r:irsc_util_exec:s0
 /system/bin/ks                                        u:object_r:mdm_helper_exec:s0
 /system/bin/mdm_helper                                u:object_r:mdm_helper_exec:s0
@@ -111,6 +112,8 @@
 /system/bin/tcmd_mini                                 u:object_r:tcmd_exec:s0
 /system/bin/time_daemon                               u:object_r:time_exec:s0
 
+/system/etc/ril/qcril.db                              u:object_r:radio_data_file:s0
+
 /system/vendor/bin/bdAddrLoader_shamu                 u:object_r:bluetooth_loader_exec:s0
 /system/vendor/bin/init\.mmi\.touch\.sh               u:object_r:mmi_touch_sh_exec:s0
 /system/vendor/bin/init\.qcom\.devstart\.sh           u:object_r:init-qcom-devstart-sh_exec:s0
@@ -118,11 +121,12 @@
 /system/vendor/bin/mpdecision                         u:object_r:mpdecision_exec:s0
 /system/vendor/bin/netmgrd                            u:object_r:netmgrd_exec:s0
 /system/vendor/bin/hw/android\.hardware\.dumpstate@1\.0-service\.shamu u:object_r:hal_dumpstate_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.drm@1\.2-service\.clearkey    u:object_r:hal_drm_clearkey_exec:s0
 /system/vendor/bin/hw/android\.hardware\.health@2\.0-service\.shamu    u:object_r:hal_health_default_exec:s0
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.shamu     u:object_r:hal_light_default_exec:s0
-/system/vendor/bin/hw/android\.hardware\.power@1\.1-service\.shamu     u:object_r:hal_power_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.power@1\.2-service\.shamu     u:object_r:hal_power_default_exec:s0
 /system/vendor/bin/hw/android\.hardware\.thermal@1\.1-service\.shamu   u:object_r:hal_thermal_default_exec:s0
-/system/vendor/bin/hw/android\.hardware\.vibrator@1\.0-service\.shamu  u:object_r:hal_vibrator_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.vibrator@1\.1-service\.shamu  u:object_r:hal_vibrator_default_exec:s0
 /system/vendor/bin/thermal-engine                     u:object_r:thermald_exec:s0
 
 ###################################

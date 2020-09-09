@@ -1,7 +1,6 @@
 OLD_LOCAL_PATH := $(LOCAL_PATH)
 LOCAL_PATH := $(call my-dir)
 
-include $(LOCAL_PATH)/../../../common.mk
 include $(CLEAR_VARS)
 
 # cam_intf.c has type conversion discarding qualifiers.
@@ -30,14 +29,15 @@ LOCAL_CFLAGS += \
 LOCAL_COPY_HEADERS_TO := mm-camera-interface
 LOCAL_COPY_HEADERS += ../common/cam_intf.h
 LOCAL_COPY_HEADERS += ../common/cam_types.h
+LOCAL_COPY_HEADERS += ../common/cam_cond.h
+LOCAL_COPY_HEADERS += ../common/cam_semaphore.h
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/inc \
     $(LOCAL_PATH)/../common \
     system/media/camera/include
 
-LOCAL_C_INCLUDES += $(kernel_includes)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
+LOCAL_HEADER_LIBRARIES := generated_kernel_headers
 
 LOCAL_C_INCLUDES += hardware/qcom/media/msm8974/mm-core/inc
 

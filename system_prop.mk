@@ -5,7 +5,8 @@
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
-    audio_hal.period_size=192 \
+    audio_hal.period_size=240 \
+    debug.stagefright.ccodec=0 \
     media.aac_51_output_enabled=true \
     persist.audio.dualmic.config=endfire \
     persist.audio.fluence.speaker=false \
@@ -13,7 +14,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecomm=false \
     persist.audio.fluence.voicerec=false \
     ro.audio.flinger_standbytime_ms=300 \
-    ro.audio.monitorRotation=true \
     ro.config.media_vol_steps=25 \
     ro.config.vc_call_vol_steps=7 \
     ro.qc.sdk.audio.fluencetype=fluence
@@ -51,6 +51,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.use_buffer_age=false \
+    debug.sf.enable_gl_backpressure=1 \
+    debug.sf.latch_unsignaled=1 \
     persist.hwc.mdpcomp.enable=true \
     ro.opengles.version=196610 \
     ro.sf.lcd_density=560 \
@@ -71,16 +73,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/frp
 
+# Fastbootd
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.fastbootd.available=true
+
 # FIFO
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.use_fifo_ui=1
-
-# IMS logging
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.ims.disableADBLogs=2 \
-    persist.ims.disableDebugLogs=1 \
-    persist.ims.disableIMSLogs=1 \
-    persist.ims.disableQXDMLogs=0
 
 # OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -89,9 +88,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=/vendor/lib/libqc-opt.so
-
-# Privileged permission whitelisting
-ro.control_privapp_permissions=log
 
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -107,14 +103,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.qcril_uim_vcc_feature=1 \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 
-# Rich Communications Service is disabled in 5.1
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.rcs.supported=0
-
-# Shipping API
-# ro.product.first_api_level indicates the first api level the device has commercially launched on.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.first_api_level=21
+# Surfaceflinger
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.force_hwc_copy_for_virtual_displays=true \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
+    ro.surface_flinger.max_virtual_display_dimension=2048
 
 # Telephony
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -130,9 +123,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lineage.build.vendor_security_patch=2017-10-01
-
-# Wi-Fi calling
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.data.iwlan.enable=true \
-    persist.radio.data_con_rprt=1 \
-    persist.radio.ignore_ims_wlan=1

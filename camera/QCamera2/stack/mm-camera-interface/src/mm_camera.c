@@ -41,6 +41,7 @@
 #include "mm_camera_sock.h"
 #include "mm_camera_interface.h"
 #include "mm_camera.h"
+#include "cam_cond.h"
 
 #define SET_PARM_BIT32(parm, parm_arr) \
     (parm_arr[parm/32] |= (1<<(parm%32)))
@@ -241,14 +242,19 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
     int32_t n_try=MM_CAMERA_DEV_OPEN_TRIES;
     uint8_t sleep_msec=MM_CAMERA_DEV_OPEN_RETRY_SLEEP;
     unsigned int cam_idx = 0;
+    const char *dev_name_value = NULL;
 
     CDBG("%s:  begin\n", __func__);
 
     if (NULL == my_obj) {
         goto on_error;
     }
+    dev_name_value = mm_camera_util_get_dev_name(my_obj->my_hdl);
+    if (NULL == dev_name_value) {
+        goto on_error;
+    }
     snprintf(dev_name, sizeof(dev_name), "/dev/%s",
-             mm_camera_util_get_dev_name(my_obj->my_hdl));
+             dev_name_value);
     sscanf(dev_name, "/dev/video%u", &cam_idx);
     CDBG_HIGH("%s: dev name = %s, cam_idx = %d", __func__, dev_name, cam_idx);
 
@@ -298,7 +304,7 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
 
     pthread_mutex_init(&my_obj->cb_lock, NULL);
     pthread_mutex_init(&my_obj->evt_lock, NULL);
-    pthread_cond_init(&my_obj->evt_cond, NULL);
+    PTHREAD_COND_INIT(&my_obj->evt_cond);
 
     CDBG("%s : Launch evt Thread in Cam Open",__func__);
     mm_camera_cmd_thread_launch(&my_obj->evt_thread,
@@ -312,12 +318,19 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
                                  MM_CAMERA_POLL_TYPE_EVT);
     mm_camera_evt_sub(my_obj, TRUE);
 
+    /* unlock cam_lock, we need release global intf_lock in camera_open(),
+     * in order not block operation of other Camera in dual camera use case.*/
+    pthread_mutex_unlock(&my_obj->cam_lock);
     CDBG("%s:  end (rc = %d)\n", __func__, rc);
-    /* we do not need to unlock cam_lock here before return
-     * because for open, it's done within intf_lock */
     return rc;
 
 on_error:
+
+    if (NULL == dev_name_value) {
+        CDBG_ERROR("%s: Invalid device name\n", __func__);
+        rc = -1;
+    }
+
     if (NULL == my_obj) {
         CDBG_ERROR("%s: Invalid camera object\n", __func__);
         rc = -1;
@@ -332,8 +345,9 @@ on_error:
         }
     }
 
-    /* we do not need to unlock cam_lock here before return
-     * because for open, it's done within intf_lock */
+    /* unlock cam_lock, we need release global intf_lock in camera_open(),
+     * in order not block operation of other Camera in dual camera use case.*/
+    pthread_mutex_unlock(&my_obj->cam_lock);
     return rc;
 }
 
@@ -1581,7 +1595,7 @@ void mm_camera_util_wait_for_event(mm_camera_obj_t *my_obj,
 
     pthread_mutex_lock(&my_obj->evt_lock);
     while (!(my_obj->evt_rcvd.server_event_type & evt_mask)) {
-        clock_gettime(CLOCK_REALTIME, &ts);
+        clock_gettime(CLOCK_MONOTONIC, &ts);
         ts.tv_sec += WAIT_TIMEOUT_IN_SEC;
         rc = pthread_cond_timedwait(&my_obj->evt_cond, &my_obj->evt_lock, &ts);
         if (rc) {
