@@ -193,6 +193,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions_shamu.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions_shamu.xml
 
+# Protobuf
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v28/arm/arch-arm-armv7-a-neon/shared/vndk-core/libprotobuf-cpp-lite.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-lite-v28.so
+
 # Ramdisk
  PRODUCT_PACKAGES += \
     fstab.shamu \
