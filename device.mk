@@ -104,6 +104,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/gps.conf
 
 # HIDL
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
 
 # Keylayouts
