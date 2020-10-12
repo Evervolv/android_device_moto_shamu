@@ -38,8 +38,6 @@ LOCAL_SHARED_LIBRARIES := \
     libdl \
     libbase \
     libhidlbase \
-    libhidltransport \
-    libhwbinder \
     libutils \
     android.hardware.power@1.2 \
     vendor.evervolv.power@1.0
