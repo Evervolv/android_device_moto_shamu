@@ -128,7 +128,7 @@ TARGET_USES_INTERACTION_BOOST := true
 TARGET_TAP_TO_WAKE_NODE := "/sys/bus/i2c/devices/1-004a/tsp"
 
 # Recovery
-LZMA_RAMDISK_TARGETS := recovery
+BOARD_RECOVERY_COMPRESSOR := xz
 TARGET_RECOVERY_FSTAB = device/moto/shamu/rootdir/etc/fstab.shamu
 
 # Render
