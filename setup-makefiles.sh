@@ -18,7 +18,7 @@
 
 set -e
 
-VENDOR=motorola
+VENDOR=moto
 DEVICE=shamu
 
 INITIAL_COPYRIGHT_YEAR=2014

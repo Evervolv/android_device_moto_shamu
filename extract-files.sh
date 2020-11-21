@@ -19,7 +19,7 @@
 set -e
 
 DEVICE=shamu
-VENDOR=motorola
+VENDOR=moto
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
